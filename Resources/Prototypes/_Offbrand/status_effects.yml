@@ -106,6 +106,14 @@
 
 - type: entity
   parent: MobStatusEffectBase
+  id: StatusEffectHeartStrainRomerol
+  name: increased heart rate
+  components:
+  - type: StrainStatusEffect
+    delta: 1.5
+
+- type: entity
+  parent: MobStatusEffectBase
   id: StatusEffectHeartStabilizationInaprovaline
   name: heart stabilization
   components:
@@ -215,6 +223,7 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectMinorPain
+  name: minor pain
   components:
   - type: PopupOnAppliedStatusEffect
     message: minor-pain-applied
@@ -222,12 +231,14 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectPainStuttering
+  name: pain stuttering
   components:
   - type: StutteringAccent
 
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectModeratePain
+  name: moderate pain
   components:
   - type: PopupOnAppliedStatusEffect
     message: moderate-pain-applied
@@ -246,11 +257,14 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectSeverePain
+  name: severe pain
   components:
   - type: PopupOnAppliedStatusEffect
     message: severe-pain-applied
     visualType: MediumCaution
   - type: MovementModStatusEffect
+    sprintSpeedModifier: 0.95
+    walkSpeedModifier: 0.95
   - type: MeleeModifiersStatusEffect
     attackRateMultiplier: 0.8
     attackRateConstant: -0.05
@@ -260,10 +274,12 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectBlackoutPain
+  name: blackout pain
   components:
   - type: PopupOnAppliedStatusEffect
     message: blackout-pain-applied
     visualType: LargeCaution
+  - type: MovementModStatusEffect
   - type: KnockdownStatusEffect
   - type: KnockdownOnAppliedStatusEffect
     duration: 5
@@ -282,6 +298,7 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectHeartStopped
+  name: stopped heart
   components:
   - type: PopupOnAppliedStatusEffect
     message: own-heart-has-stopped-beating
@@ -302,16 +319,17 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectNeuralSuppression
+  name: neural suppression
   components:
   - type: PopupOnAppliedStatusEffect
     message: neural-suppression-applied
   - type: PainSuppressionStatusEffect
   - type: BlindnessStatusEffect
-  - type: ForcedSleepingStatusEffect
 
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectSevereBrainDamage
+  name: severe brain damage
   components:
   - type: PopupOnAppliedStatusEffect
     message: severe-brain-damage-applied
@@ -334,6 +352,7 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectBrainNoOxygen
+  name: no brain oxygen
   components:
   - type: PopupOnAppliedStatusEffect
     message: brain-oxygen-depleted
@@ -347,6 +366,7 @@
 - type: entity
   parent: StatusEffectSevereBrainDamage
   id: StatusEffectCriticalBrainDamage
+  name: critical brain damage
   components:
   - type: PopupOnAppliedStatusEffect
     message: critical-brain-damage-applied
@@ -355,6 +375,54 @@
 - type: entity
   parent: MobStatusEffectBase
   id: StatusEffectActiveCPR
+  name: ongoing CPR
   components:
   - type: AssistedCirculationStatusEffect
     amount: 0.4
+
+- type: entity
+  abstract: true
+  id: BaseStatusEffectPersistentTender
+  components:
+  - type: RemovableStatusEffect
+    selfUserCompleted: persistent-tender-removal-reflexive-user-completed
+    selfOtherCompleted: persistent-tender-removal-reflexive-other-completed
+    userCompleted: persistent-tender-removal-user-completed
+    otherCompleted: persistent-tender-removal-other-completed
+    selfUserStarted: persistent-tender-removal-reflexive-user-started
+    selfOtherStarted: persistent-tender-removal-reflexive-other-started
+    userStarted: persistent-tender-removal-user-started
+    otherStarted: persistent-tender-removal-other-started
+
+- type: entity
+  parent: [BaseStatusEffectPersistentTender, MobStatusEffectBase]
+  id: StatusEffectTourniquet
+  name: tourniquet
+  components:
+  - type: ExaminableStatusEffect
+    message: tourniquet-applied-examine
+  - type: RemovableStatusEffect
+    verb: verb-remove-tourniquet
+    spawnOnRemove: TourniquetOffbrand
+  - type: DamageOverTimeStatusEffect
+    damages:
+      types:
+        Blunt: 0.15
+  - type: BleedMultiplierStatusEffect
+    multiplier: 0.25
+
+- type: entity
+  parent: [BaseStatusEffectPersistentTender, MobStatusEffectBase]
+  id: StatusEffectSplints
+  name: splints
+  components:
+  - type: ExaminableStatusEffect
+    message: splints-applied-examine
+  - type: RemovableStatusEffect
+    verb: verb-remove-splints
+    spawnOnRemove: Splints
+  - type: MovementModStatusEffect
+    sprintSpeedModifier: 0.8
+    walkSpeedModifier: 0.8
+  - type: SlowOnDamageModifierStatusEffect
+    modifier: 0.25

@@ -41,6 +41,10 @@ public sealed partial class HeartSystem : EntitySystem
         SubscribeLocalEvent<HeartStopOnHighStrainComponent, HeartBeatEvent>(OnHeartBeatStrain);
         SubscribeLocalEvent<HeartStopOnBrainHealthComponent, HeartBeatEvent>(OnHeartBeatBrain);
 
+        SubscribeLocalEvent<HeartStopOnHypovolemiaComponent, BeforeTargetDefibrillatedEvent>(OnHeartBeatHypovolemiaMessage);
+        SubscribeLocalEvent<HeartStopOnHighStrainComponent, BeforeTargetDefibrillatedEvent>(OnHeartBeatStrainMessage);
+        SubscribeLocalEvent<HeartStopOnBrainHealthComponent, BeforeTargetDefibrillatedEvent>(OnHeartBeatBrainMessage);
+
         SubscribeLocalEvent<HeartDefibrillatableComponent, TargetDefibrillatedEvent>(OnTargetDefibrillated);
     }
 
@@ -202,6 +206,39 @@ public sealed partial class HeartSystem : EntitySystem
         args.Stop = args.Stop || rand.Prob(ent.Comp.Chance) && damage > ent.Comp.Threshold;
     }
 
+    private void OnHeartBeatHypovolemiaMessage(Entity<HeartStopOnHypovolemiaComponent> ent, ref BeforeTargetDefibrillatedEvent args)
+    {
+        var volume = BloodVolume((ent.Owner, Comp<HeartrateComponent>(ent)));
+        if (volume >= ent.Comp.VolumeThreshold)
+            return;
+
+        args.Messages.Add(ent.Comp.Warning);
+    }
+
+    private void OnHeartBeatStrainMessage(Entity<HeartStopOnHighStrainComponent> ent, ref BeforeTargetDefibrillatedEvent args)
+    {
+        if (_statusEffects.HasEffectComp<PreventHeartStopFromStrainStatusEffectComponent>(ent))
+            return;
+
+        var strain = RecomputeHeartStrain((ent.Owner, Comp<HeartrateComponent>(ent)));
+        if (strain < ent.Comp.Threshold)
+            return;
+
+        args.Messages.Add(ent.Comp.Warning);
+    }
+
+    private void OnHeartBeatBrainMessage(Entity<HeartStopOnBrainHealthComponent> ent, ref BeforeTargetDefibrillatedEvent args)
+    {
+        if (_statusEffects.HasEffectComp<PreventHeartStopFromStrainStatusEffectComponent>(ent))
+            return;
+
+        var damage = Comp<BrainDamageComponent>(ent).Damage;
+        if (damage <= ent.Comp.Threshold)
+            return;
+
+        args.Messages.Add(ent.Comp.Warning);
+    }
+
     public void ChangeHeartDamage(Entity<HeartrateComponent?> ent, FixedPoint2 amount)
     {
         if (!Resolve(ent, ref ent.Comp, false))
@@ -232,25 +269,34 @@ public sealed partial class HeartSystem : EntitySystem
         return bloodSolution.Volume / bloodSolution.MaxVolume;
     }
 
-    public FixedPoint2 BloodCirculation(Entity<HeartrateComponent> ent)
+    public FixedPoint4 BloodFlow(Entity<HeartrateComponent> ent)
     {
         if (!ent.Comp.Running)
         {
             var evt = new GetStoppedCirculationModifier(ent.Comp.StoppedBloodCirculationModifier);
             RaiseLocalEvent(ent, ref evt);
-            return BloodVolume(ent) * evt.Modifier;
+            return evt.Modifier;
         }
 
-        FixedPoint4 volume = BloodVolume(ent);
-        var strain = HeartStrain(ent);
+        FixedPoint4 modifier = 1;
+
+        FixedPoint4 strain = HeartStrain(ent);
 
         var strainModifier = ent.Comp.CirculationStrainModifierCoefficient * strain + ent.Comp.CirculationStrainModifierConstant;
 
-        volume *= strainModifier;
+        modifier *= strainModifier;
 
-        volume *= FixedPoint2.Max( ent.Comp.MinimumDamageCirculationModifier, FixedPoint2.New(1d) - (ent.Comp.Damage / ent.Comp.MaxDamage) );
+        modifier *= FixedPoint2.Max( ent.Comp.MinimumDamageCirculationModifier, FixedPoint2.New(1d) - (ent.Comp.Damage / ent.Comp.MaxDamage) );
 
-        return FixedPoint2.Min((FixedPoint2)volume, 1);
+        return modifier;
+    }
+
+    public FixedPoint2 BloodCirculation(Entity<HeartrateComponent> ent)
+    {
+        FixedPoint4 volume = BloodVolume(ent);
+        var flow = BloodFlow(ent);
+
+        return FixedPoint2.Min((FixedPoint2)(volume * flow), 1);
     }
 
     public FixedPoint2 BloodOxygenation(Entity<HeartrateComponent> ent)

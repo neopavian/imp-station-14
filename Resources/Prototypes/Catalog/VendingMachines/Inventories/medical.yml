@@ -5,6 +5,8 @@
     Brutepack: 5
     Ointment: 5
     ChemistryBottleParacetamol: 3 # Offbrand
+    Tourniquet: 3: # Offbrand
+    Splints: 3: # Offbrand
     ChemistryBottleEpinephrine: 3
     Syringe: 5
     BoxBottle: 3

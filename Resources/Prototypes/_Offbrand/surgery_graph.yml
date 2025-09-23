@@ -103,7 +103,8 @@
       - !type:RemoveStatusEffect
         effect: WoundFracture
       steps:
-      - tool: BoneSetting
+      - tool: BoneMending
+        doAfter: 1
   - node: WoundFractureTreatment
     surgeryName: surgery-wound-fracture-treatment-name
     actions:

@@ -1,0 +1,48 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+- type: entity
+  parent: BaseItem
+  id: TourniquetOffbrand
+  name: tourniquet
+  description: Can be clamped on a patient to prevent bleeding, but causes bruises after sustained use.
+  components:
+  - type: Tag
+    tags:
+    - SecBeltEquip
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: tourniquet
+  - type: Item
+    heldPrefix: tourniquet
+  - type: UpdateStatusEffectOnTrigger
+    effectProto: StatusEffectTourniquet
+    targetUser: true
+  - type: StatusEffectTriggerCondition
+    effectProto: StatusEffectTourniquet
+    targetUser: true
+    invert: true
+  - type: TriggerOnDoAfter
+    beginSound:
+      path: "/Audio/Items/Medical/brutepack_begin.ogg"
+      params:
+        volume: 1.0
+        variation: 0.125
+    endSound:
+      path: "/Audio/Items/Medical/brutepack_end.ogg"
+      params:
+        volume: 1.0
+        variation: 0.125
+    whitelist:
+      components:
+      - Woundable
+    conditionFailed: tourniquet-already-applied
+    selfUserCompleted: tourniquet-reflexive-user-completed
+    selfOtherCompleted: tourniquet-reflexive-other-completed
+    userCompleted: tourniquet-user-completed
+    otherCompleted: tourniquet-other-completed
+    selfUserStarted: tourniquet-reflexive-user-started
+    selfOtherStarted: tourniquet-reflexive-other-started
+    userStarted: tourniquet-user-started
+    otherStarted: tourniquet-other-started

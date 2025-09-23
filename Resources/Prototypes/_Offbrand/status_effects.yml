@@ -369,3 +369,7 @@
   components:
   - type: AssistedCirculationStatusEffect
     amount: 0.4
+
+- type: entity
+  parent: MobStatusEffectBase
+  id: StatusEffectTourniquet

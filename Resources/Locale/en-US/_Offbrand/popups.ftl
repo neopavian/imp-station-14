@@ -17,6 +17,16 @@ tendable-self-tending = You begin tending your { $wound } with { THE($tending) }
 tendable-user-tending = You begin tending { $target }'s { $wound } with { THE($tending) }.
 tendable-other-tending = { $user } begins tending { $target }'s { $wound } with { THE($tending) }.
 
+tourniquet-already-applied = { $target } already has { INDEFINITE($trigger) } { $trigger }.
+tourniquet-reflexive-user-completed = You tightened { THE($trigger) } around yourself.
+tourniquet-reflexive-other-completed = { $user } tightened { THE($trigger) } around { REFLEXIVE($user) }.
+tourniquet-user-completed = You tightened { THE($trigger) } around { $target }.
+tourniquet-other-completed = { $user } tightened { THE($trigger) } around { $target }.
+tourniquet-reflexive-user-started = You begin to tighten { THE($trigger) } around yourself.
+tourniquet-reflexive-other-started = { $user } begins to tighten { THE($trigger) } around { REFLEXIVE($user) }.
+tourniquet-user-started = You begin to tighten { THE($trigger) } around { $target }.
+tourniquet-other-started = { $user } begins to tighten { THE($trigger) } around { $target }.
+
 cpr-target-started-user = You begin to perform chest compressions on { $target }.
 cpr-target-started-others = { $user } begins performing chest compressions { $target }.
 cpr-wound-caused = You hear a loud, sickening crack.

@@ -66,7 +66,7 @@
           Quantity: 30
   - type: MeleeChemicalInjector
     solution: melee
-    transferAmount: 1
+    transferAmount: 0.25
   - type: SolutionRegeneration
     solution: melee
     duration: 5

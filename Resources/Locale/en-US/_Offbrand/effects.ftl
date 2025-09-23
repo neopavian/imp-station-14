@@ -80,3 +80,19 @@ reagent-effect-condition-guidebook-is-zombie-immune =
                 }
 
 reagent-effect-condition-guidebook-this-metabolite = this reagent's
+
+reagent-effect-guidebook-adjust-reagent-gaussian =
+    { $chance ->
+        [1] { $deltasign ->
+                [1] Typically adds
+                *[-1] Typically removes
+            }
+        *[other]
+            { $deltasign ->
+                [1] typically add
+                *[-1] typically remove
+            }
+    } {NATURALFIXED($mu, 2)}u of {$reagent} { $deltasign ->
+        [1] to
+        *[-1] from
+    } the solution, with the actual amount varying by around {NATURALFIXED($sigma, 2)}u

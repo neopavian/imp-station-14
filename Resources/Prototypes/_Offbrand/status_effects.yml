@@ -259,6 +259,8 @@
     message: severe-pain-applied
     visualType: MediumCaution
   - type: MovementModStatusEffect
+    sprintSpeedModifier: 0.95
+    walkSpeedModifier: 0.95
   - type: MeleeModifiersStatusEffect
     attackRateMultiplier: 0.8
     attackRateConstant: -0.05
@@ -272,6 +274,7 @@
   - type: PopupOnAppliedStatusEffect
     message: blackout-pain-applied
     visualType: LargeCaution
+  - type: MovementModStatusEffect
   - type: KnockdownStatusEffect
   - type: KnockdownOnAppliedStatusEffect
     duration: 5

@@ -39,10 +39,10 @@ public sealed partial class WoundableHealthAnalyzerData
     public AttributeRating BloodOxygenationRating;
 
     [DataField]
-    public double BloodCirculation;
+    public double BloodFlow;
 
     [DataField]
-    public AttributeRating BloodCirculationRating;
+    public AttributeRating BloodFlowRating;
 
     [DataField]
     public int HeartRate;
@@ -135,6 +135,7 @@ public abstract class SharedWoundableHealthAnalyzerSystem : EntitySystem
         var (upper, lower) = _heart.BloodPressure((uid, heartrate));
         var oxygenation = _heart.BloodOxygenation((uid, heartrate)).Double();
         var circulation = _heart.BloodCirculation((uid, heartrate)).Double();
+        var flow = _heart.BloodFlow((uid, heartrate)).Double();
 
         var hasNonMedical = false;
         var reagents = withWounds ? SampleReagents(uid, out hasNonMedical) : null;
@@ -149,8 +150,8 @@ public abstract class SharedWoundableHealthAnalyzerSystem : EntitySystem
                 BloodPressureRating = RateHigherIsBetter(circulation),
                 BloodOxygenation = oxygenation,
                 BloodOxygenationRating = RateHigherIsBetter(oxygenation),
-                BloodCirculation = circulation,
-                BloodCirculationRating = RateHigherIsBetter(circulation),
+                BloodFlow = flow,
+                BloodFlowRating = RateHigherIsBetter(flow),
                 HeartRate = _heart.HeartRate((uid, heartrate)).Int(),
                 HeartRateRating = !heartrate.Running ? AttributeRating.Dangerous : RateHigherIsWorse(strain),
                 AnyVitalCritical = _shockThresholds.IsCritical(uid) || _brainDamage.IsCritical(uid) || _heart.IsCritical(uid),

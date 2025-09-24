@@ -38,16 +38,16 @@ Blood saturation is the primary measure for how satiated a patient's brain is.
 Blood saturation is affected by:
 - [color=cyan]Blood volume[/color]: Blood can be restored with saline for most species, or blood bags.
 - [color=cyan]Breathable air[/color]: Ensure the patient can breathe. Dexalin (plus) can be used to artificially oxygenate the bloodstream.
-- [color=cyan]Blood circulation[/color]: The heart is responsible for circulating blood around your patient's body. CPR can be administered if the patient's heart has stopped, followed by surgical intervention as soon as possible.
+- [color=cyan]Blood flow[/color]: The heart is responsible for circulating blood around your patient's body. CPR can be administered if the patient's heart has stopped, followed by surgical intervention as soon as possible.
 
 ### Diagnosis
 
-You can gauge your patient's blood vitals with your health analyzer, listed as [color=#7af396]Blood Saturation[/color], [color=#7af396]Blood Pressure[/color], and [color=#7af396]Blood Circulation[/color].
+You can gauge your patient's blood vitals with your health analyzer, listed as [color=#7af396]Blood Saturation[/color], [color=#7af396]Blood Pressure[/color], and [color=#7af396]Blood Flow[/color].
 
-If your patient's [color=#7af396]Blood Saturation[/color] is low, ensure their [color=#7af396]Blood Circulation[/color] is at safe levels, and make sure the patient has access to air.
+If your patient's [color=#7af396]Blood Saturation[/color] is low, ensure their [color=#7af396]Blood Pressure[/color] is at safe levels, and make sure the patient has access to air.
 Medicines such as Dexalin can be used to ensure the bloodstream has access to air, and to speed up the process of respiration after prolonged suffocation.
 
-If your patient's [color=#7af396]Blood Circulation[/color] is low, ensure their [color=#7af396]Heart Rate[/color] and [color=#7af396]Blood Pressure[/color] are at safe levels.
+If your patient's [color=#7af396]Blood Flow[/color] is low, ensure their [color=#7af396]Heart Rate[/color] and [color=#7af396]Heart Health[/color] are at safe levels.
 In the case of a stopped heart, you can give CPR to ensure the blood is moving.
 
 If your patient's [color=#7af396]Blood Pressure[/color] is low, ensure their [color=#7af396]Heart Rate[/color] and blood volume are at safe levels.
@@ -59,11 +59,11 @@ Saline and blood bags can be used to increase the patient's blood volume.
   <GuideEntityEmbed Entity="OrganHumanHeart" Caption="Human Heart" />
 </Box>
 
-The heart is responsible for blood circulation.
+The heart is responsible for blood flow.
 
 [color=#00d3b8][bold]If a patient's heart has stopped, they are priority number one.[/bold][/color]
 
-Blood circulation increases with heartrate, and decreases with heart damage, coming to near-zero if the heart stops.
+Blood flow increases with heartrate, and decreases with heart damage, coming to near-zero if the heart stops.
 
 The heart will increase its heartrate in response to pain, lack of access to breathable air, and lowered blood volume.
 
@@ -74,7 +74,7 @@ The heart will stop from:
 
 The heart can be restarted using a defibrillator.
 
-If the heart cannot be restarted, medical professionals and other crew alike can administer CPR to ensure blood circulation.
+If the heart cannot be restarted, medical professionals and other crew alike can administer CPR to ensure blood flow.
 
 ### Diagnosis
 

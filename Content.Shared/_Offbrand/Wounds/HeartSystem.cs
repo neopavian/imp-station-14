@@ -269,25 +269,34 @@ public sealed partial class HeartSystem : EntitySystem
         return bloodSolution.Volume / bloodSolution.MaxVolume;
     }
 
-    public FixedPoint2 BloodCirculation(Entity<HeartrateComponent> ent)
+    public FixedPoint4 BloodFlow(Entity<HeartrateComponent> ent)
     {
         if (!ent.Comp.Running)
         {
             var evt = new GetStoppedCirculationModifier(ent.Comp.StoppedBloodCirculationModifier);
             RaiseLocalEvent(ent, ref evt);
-            return BloodVolume(ent) * evt.Modifier;
+            return evt.Modifier;
         }
 
-        FixedPoint4 volume = BloodVolume(ent);
-        var strain = HeartStrain(ent);
+        FixedPoint4 modifier = 1;
+
+        FixedPoint4 strain = HeartStrain(ent);
 
         var strainModifier = ent.Comp.CirculationStrainModifierCoefficient * strain + ent.Comp.CirculationStrainModifierConstant;
 
-        volume *= strainModifier;
+        modifier *= strainModifier;
 
-        volume *= FixedPoint2.Max( ent.Comp.MinimumDamageCirculationModifier, FixedPoint2.New(1d) - (ent.Comp.Damage / ent.Comp.MaxDamage) );
+        modifier *= FixedPoint2.Max( ent.Comp.MinimumDamageCirculationModifier, FixedPoint2.New(1d) - (ent.Comp.Damage / ent.Comp.MaxDamage) );
 
-        return FixedPoint2.Min((FixedPoint2)volume, 1);
+        return modifier;
+    }
+
+    public FixedPoint2 BloodCirculation(Entity<HeartrateComponent> ent)
+    {
+        FixedPoint4 volume = BloodVolume(ent);
+        var flow = BloodFlow(ent);
+
+        return FixedPoint2.Min((FixedPoint2)(volume * flow), 1);
     }
 
     public FixedPoint2 BloodOxygenation(Entity<HeartrateComponent> ent)

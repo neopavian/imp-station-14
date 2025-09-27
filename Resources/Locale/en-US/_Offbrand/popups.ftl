@@ -17,15 +17,25 @@ tendable-self-tending = You begin tending your { $wound } with { THE($tending) }
 tendable-user-tending = You begin tending { $target }'s { $wound } with { THE($tending) }.
 tendable-other-tending = { $user } begins tending { $target }'s { $wound } with { THE($tending) }.
 
-tourniquet-already-applied = { $target } already has { INDEFINITE($trigger) } { $trigger }.
-tourniquet-reflexive-user-completed = You tightened { THE($trigger) } around yourself.
-tourniquet-reflexive-other-completed = { $user } tightened { THE($trigger) } around { REFLEXIVE($user) }.
-tourniquet-user-completed = You tightened { THE($trigger) } around { $target }.
-tourniquet-other-completed = { $user } tightened { THE($trigger) } around { $target }.
-tourniquet-reflexive-user-started = You begin to tighten { THE($trigger) } around yourself.
-tourniquet-reflexive-other-started = { $user } begins to tighten { THE($trigger) } around { REFLEXIVE($user) }.
-tourniquet-user-started = You begin to tighten { THE($trigger) } around { $target }.
-tourniquet-other-started = { $user } begins to tighten { THE($trigger) } around { $target }.
+persistent-tender-already-applied = { $target } already has { INDEFINITE($trigger) } { $trigger }.
+
+persistent-tender-reflexive-user-completed = You tightened { THE($trigger) } around yourself.
+persistent-tender-reflexive-other-completed = { $user } tightened { THE($trigger) } around { REFLEXIVE($user) }.
+persistent-tender-user-completed = You tightened { THE($trigger) } around { $target }.
+persistent-tender-other-completed = { $user } tightened { THE($trigger) } around { $target }.
+persistent-tender-reflexive-user-started = You begin to tighten { THE($trigger) } around yourself.
+persistent-tender-reflexive-other-started = { $user } begins to tighten { THE($trigger) } around { REFLEXIVE($user) }.
+persistent-tender-user-started = You begin to tighten { THE($trigger) } around { $target }.
+persistent-tender-other-started = { $user } begins to tighten { THE($trigger) } around { $target }.
+
+persistent-tender-removal-reflexive-user-completed = You removed { THE($effect) } from yourself.
+persistent-tender-removal-reflexive-other-completed = { $user } removed { THE($effect) } from { REFLEXIVE($user) }.
+persistent-tender-removal-user-completed = You removed { THE($effect) } from { $target }.
+persistent-tender-removal-other-completed = { $user } removed { THE($effect) } from { $target }.
+persistent-tender-removal-reflexive-user-started = You begin to loosen { THE($effect) } from yourself.
+persistent-tender-removal-reflexive-other-started = { $user } begins to loosen { THE($effect) } from { REFLEXIVE($user) }.
+persistent-tender-removal-user-started = You begin to loosen { THE($effect) } from { $target }.
+persistent-tender-removal-other-started = { $user } begins to loosen { THE($effect) } around { $target }.
 
 cpr-target-started-user = You begin to perform chest compressions on { $target }.
 cpr-target-started-others = { $user } begins performing chest compressions { $target }.

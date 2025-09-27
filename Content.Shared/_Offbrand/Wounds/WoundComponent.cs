@@ -165,3 +165,9 @@ public record struct GetStrainEvent(FixedPoint2 Strain);
 /// </summary>
 [ByRefEvent]
 public record struct GetBleedLevelEvent(float BleedLevel);
+
+/// <summary>
+/// Raised on an entity to modify the bleed level before committing to bleeding
+/// </summary>
+[ByRefEvent]
+public record struct ModifyBleedLevelEvent(float BleedLevel);

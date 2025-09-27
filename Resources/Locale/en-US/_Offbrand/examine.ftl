@@ -9,6 +9,9 @@ wound-tended-modifier = tended {$wound}
 wound-bandaged-modifier = bandaged {$wound}
 wound-salved-modifier = salved {$wound}
 
+tourniquet-applied-examine = { CAPITALIZE(SUBJECT($target)) } { CONJUGATE-HAVE($target) } a tourniquet clamped on { OBJECT($target) }.
+splints-applied-examine = { CAPITALIZE(SUBJECT($target)) } { CONJUGATE-HAVE($target) } some splints on { OBJECT($target) }.
+
 wound-count-modifier =
     { CAPITALIZE(SUBJECT($target)) } { CONJUGATE-HAVE($target) } { $count ->
         [1] {INDEFINITE( $wound )} { $wound }
